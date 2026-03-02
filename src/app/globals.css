@@ -1,26 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Stripe Style Colors */
+  --stripe-purple: #635bff;
+  --stripe-purple-light: #7a73ff;
+  --stripe-cyan: #00d4ff;
+  --stripe-cyan-light: #80e9ff;
+  --text-primary: #0a2540;
+  --text-secondary: #425466;
+  --background: #f6f9fc;
+  --background-white: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-foreground: var(--text-primary);
+  --color-stripe: var(--stripe-purple);
+  --color-stripe-light: var(--stripe-purple-light);
+  --color-cyan: var(--stripe-cyan);
+  --color-cyan-light: var(--stripe-cyan-light);
+  --color-text-secondary: var(--text-secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+/* Stripe Style Shadows */
+.shadow-card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-card-hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-button {
+  box-shadow: 0 2px 4px rgba(99, 91, 255, 0.2), 0 4px 8px rgba(99, 91, 255, 0.2);
+}
+
+/* Grid Background */
+.grid-background {
+  background-image: linear-gradient(to right, rgba(99, 91, 255, 0.1) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(99, 91, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Smooth Transitions */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
