@@ -1,8 +1,8 @@
 export const siteConfig = {
   // ============ 基本信息 ============
   name: 'XiaoPeng',
-  description: '生活如此多娇，岂能辜负。',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourblog.com',
+  description: '左手咖啡右手烟，生活胜过活神仙。',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://xpblog.tech',
 
   // ============ Logo ============
   logo: {
@@ -15,7 +15,7 @@ export const siteConfig = {
     name: 'XiaoPeng',
     role: 'VibeCoding爱好者',
     bio: '热爱技术的开发者，喜欢探索新技术和分享知识。专注于 AI 工具开发与 Web 应用。',
-    avatar: 'src/config/1.jpg',
+    avatar: '/avatar.jpg',
     email: process.env.NEXT_PUBLIC_EMAIL || '',
     qq: process.env.NEXT_PUBLIC_QQ || '',
     github: 'https://github.com/xiaopenghuang',
