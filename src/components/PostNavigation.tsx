@@ -16,15 +16,15 @@ export default function PostNavigation({ prev, next }: PostNavigationProps) {
       {prev ? (
         <Link
           href={`/posts/${prev.slug}`}
-          className="group bg-white rounded-xl shadow-card hover:shadow-card-hover transition-smooth p-6 flex flex-col"
+          className="group gradient-border-card hover-lift shadow-card hover:shadow-card-hover p-6 flex flex-col"
         >
-          <span className="text-xs text-[#425466] mb-2 flex items-center">
-            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span className="text-xs text-foreground-secondary mb-2 flex items-center">
+            <svg className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-smooth" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             上一篇
           </span>
-          <span className="font-medium text-[#0a2540] group-hover:text-[#635bff] transition-smooth line-clamp-2">
+          <span className="font-medium text-foreground group-hover:text-accent transition-smooth line-clamp-2">
             {prev.title}
           </span>
         </Link>
@@ -35,15 +35,15 @@ export default function PostNavigation({ prev, next }: PostNavigationProps) {
       {next ? (
         <Link
           href={`/posts/${next.slug}`}
-          className="group bg-white rounded-xl shadow-card hover:shadow-card-hover transition-smooth p-6 flex flex-col text-right"
+          className="group gradient-border-card hover-lift shadow-card hover:shadow-card-hover p-6 flex flex-col text-right"
         >
-          <span className="text-xs text-[#425466] mb-2 flex items-center justify-end">
+          <span className="text-xs text-foreground-secondary mb-2 flex items-center justify-end">
             下一篇
-            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-smooth" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </span>
-          <span className="font-medium text-[#0a2540] group-hover:text-[#635bff] transition-smooth line-clamp-2">
+          <span className="font-medium text-foreground group-hover:text-accent transition-smooth line-clamp-2">
             {next.title}
           </span>
         </Link>

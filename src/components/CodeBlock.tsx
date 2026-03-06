@@ -17,7 +17,6 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
       lang: language || 'text',
       theme: 'github-dark',
     }).then(setHtml).catch(() => {
-      // Fallback for unsupported languages
       codeToHtml(code, {
         lang: 'text',
         theme: 'github-dark',
@@ -31,13 +30,25 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const lineCount = code.split('\n').length;
+
   return (
-    <div className="relative group mb-4">
-      <div className="absolute top-0 left-0 right-0 h-10 bg-[#0d1117] rounded-t-lg flex items-center justify-between px-4">
-        <span className="text-xs text-[#8b949e] font-mono">{language || 'text'}</span>
+    <div className="relative group mb-4 rounded-lg overflow-hidden">
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-4 h-10 bg-[#161b22] border-b border-[#30363d]">
+        <div className="flex items-center gap-2">
+          <div className="flex gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+            <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+            <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+          </div>
+          <span className="text-xs text-[#8b949e] font-mono ml-2">{language || 'text'}</span>
+          <span className="text-xs text-[#484f58]">{lineCount} lines</span>
+        </div>
         <button
           onClick={handleCopy}
-          className="text-xs text-[#8b949e] hover:text-white transition-smooth flex items-center gap-1"
+          className="text-xs text-[#8b949e] hover:text-white transition-smooth flex items-center gap-1 opacity-0 group-hover:opacity-100"
+          aria-label={copied ? '已复制' : '复制代码'}
         >
           {copied ? (
             <>
@@ -56,14 +67,16 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
           )}
         </button>
       </div>
+
+      {/* Code content */}
       {html ? (
         <div
-          className="pt-10 rounded-lg overflow-hidden [&>pre]:!bg-[#0d1117] [&>pre]:!p-4 [&>pre]:!m-0 [&>pre]:overflow-x-auto [&>pre]:text-sm"
+          className="[&>pre]:!bg-[#0d1117] [&>pre]:!p-4 [&>pre]:!m-0 [&>pre]:overflow-x-auto [&>pre]:text-sm"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
-        <div className="pt-10 bg-[#0d1117] rounded-lg">
-          <pre className="p-4 text-sm text-[#e6ebf1] overflow-x-auto font-mono">
+        <div className="bg-[#0d1117]">
+          <pre className="p-4 text-sm text-[#e6edf3] overflow-x-auto font-mono animate-pulse">
             <code>{code}</code>
           </pre>
         </div>

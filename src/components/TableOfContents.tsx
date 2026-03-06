@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 interface TocItem {
   id: string;
@@ -35,42 +35,42 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>('');
   const headings = extractHeadings(content);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-80px 0px -80% 0px' }
-    );
+  const updateActiveHeading = useCallback(() => {
+    const headingElements = headings
+      .map(({ id }) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
 
-    headings.forEach(({ id }) => {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
+    let current = '';
+    for (const el of headingElements) {
+      if (el.getBoundingClientRect().top <= 120) {
+        current = el.id;
       }
-    });
-
-    return () => observer.disconnect();
+    }
+    setActiveId(current);
   }, [headings]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', updateActiveHeading, { passive: true });
+    updateActiveHeading();
+    return () => window.removeEventListener('scroll', updateActiveHeading);
+  }, [updateActiveHeading]);
 
   if (headings.length === 0) {
     return null;
   }
 
   return (
-    <nav className="hidden xl:block sticky top-24 w-64 shrink-0">
-      <div className="bg-white rounded-xl shadow-card p-4">
-        <h3 className="text-sm font-semibold text-[#0a2540] mb-3 flex items-center gap-2">
-          <svg className="w-4 h-4 text-[#635bff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
-          </svg>
+    <nav className="hidden xl:block sticky top-24 w-64 shrink-0" aria-label="目录">
+      <div className="glass-card rounded-2xl shadow-card p-4">
+        <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+          <span className="w-6 h-6 rounded-md bg-accent/10 flex items-center justify-center">
+            <svg className="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+            </svg>
+          </span>
           目录
         </h3>
-        <ul className="space-y-1 text-sm max-h-[60vh] overflow-y-auto">
+        <ul className="space-y-0.5 text-sm max-h-[60vh] overflow-y-auto">
           {headings.map(({ id, text, level }) => (
             <li key={id}>
               <a
@@ -83,13 +83,16 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
                     window.scrollTo({ top, behavior: 'smooth' });
                   }
                 }}
-                className={`block py-1.5 transition-smooth border-l-2 ${
+                className={`block py-1.5 rounded-lg transition-smooth ${
                   activeId === id
-                    ? 'text-[#635bff] border-[#635bff] bg-[#635bff]/5'
-                    : 'text-[#425466] border-transparent hover:text-[#0a2540] hover:border-[#e6ebf1]'
+                    ? 'text-accent bg-accent/5 font-medium'
+                    : 'text-foreground-secondary hover:text-foreground hover:bg-secondary/50'
                 }`}
                 style={{ paddingLeft: `${(level - 2) * 12 + 12}px` }}
               >
+                <span className={`inline-block w-1.5 h-1.5 rounded-full mr-2 transition-smooth ${
+                  activeId === id ? 'bg-accent' : 'bg-border'
+                }`} />
                 {text}
               </a>
             </li>

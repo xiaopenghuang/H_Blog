@@ -20,11 +20,17 @@ export default function ReadingProgress() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-1 z-[60] bg-transparent">
+    <div className="fixed top-0 left-0 right-0 h-1 z-[60] bg-transparent" role="progressbar" aria-valuenow={Math.round(progress)} aria-valuemin={0} aria-valuemax={100} aria-label="阅读进度">
       <div
-        className="h-full bg-gradient-to-r from-[#635bff] to-[#00d4ff] transition-all duration-150 ease-out"
+        className="h-full bg-gradient-to-r from-accent via-pink to-cyan transition-all duration-150 ease-out"
         style={{ width: `${progress}%` }}
       />
+      {progress > 0 && (
+        <div
+          className="absolute top-0 h-full w-8 bg-white/30 blur-sm"
+          style={{ left: `${progress - 2}%` }}
+        />
+      )}
     </div>
   );
 }

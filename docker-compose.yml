@@ -1,0 +1,11 @@
+services:
+  blog:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://yourblog.com}
+        NEXT_PUBLIC_EMAIL: ${NEXT_PUBLIC_EMAIL:-}
+        NEXT_PUBLIC_QQ: ${NEXT_PUBLIC_QQ:-}
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

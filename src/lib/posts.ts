@@ -33,9 +33,15 @@ function ensurePostsDirectory() {
 function formatDate(date: unknown): string {
   if (!date) return '';
   if (date instanceof Date) {
+    if (isNaN(date.getTime())) return '';
     return date.toISOString().split('T')[0];
   }
-  return String(date);
+  const str = String(date);
+  const parsed = new Date(str);
+  if (!isNaN(parsed.getTime()) && /\d{4}/.test(str)) {
+    return parsed.toISOString().split('T')[0];
+  }
+  return str;
 }
 
 export function getAllPosts(): PostMeta[] {
@@ -113,7 +119,8 @@ export function getPostsByYear(): Record<string, PostMeta[]> {
   const postsByYear: Record<string, PostMeta[]> = {};
 
   posts.forEach((post) => {
-    const year = post.date.split('-')[0];
+    const year = post.date ? post.date.split('-')[0] : '';
+    if (!year) return;
     if (!postsByYear[year]) {
       postsByYear[year] = [];
     }
