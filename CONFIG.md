@@ -26,7 +26,7 @@ cp .env.example .env.local
 ### 基本信息
 
 ```typescript
-name: 'XiaoPeng Dev',           // 网站名称（Logo 旁、浏览器标签、页脚）
+name: 'XiaoP',           // 网站名称（Logo 旁、浏览器标签、页脚）
 description: '一个使用...',       // 网站描述（SEO、页脚）
 ```
 
@@ -46,13 +46,16 @@ author: {
   name: 'XiaoPeng',             // 你的名字
   role: '全栈开发者 / 技术爱好者', // 你的角色/职位
   bio: '热爱技术的开发者...',     // 个人简介
-  avatar: 'XP',                 // 头像圆圈中显示的文字（如想用图片需改组件）
+  avatar: 'https://github.com/xiaopenghuang.png',  // 头像（见下方说明）
   github: 'https://github.com/xxx',  // GitHub 主页
   githubUsername: 'xxx',              // GitHub 用户名
 },
 ```
 
-> **想用图片头像？** 修改 `src/components/HeroProfileCard.tsx` 中的头像部分，将 `<span>` 替换为 `<img src="你的图片地址" />`。
+> **头像支持三种写法：**
+> - 网络图片：`'https://github.com/xiaopenghuang.png'`（GitHub 头像、图床链接等）
+> - 本地图片：`'/avatar.jpg'`（把图片放到 `public/` 文件夹下）
+> - 文字头像：`'XP'`（显示文字在圆圈中）
 
 ### 导航菜单
 

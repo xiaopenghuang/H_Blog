@@ -1,7 +1,7 @@
 export const siteConfig = {
   // ============ 基本信息 ============
-  name: 'XiaoPeng Dev',
-  description: '一个使用 Next.js 构建的个人技术博客',
+  name: 'XiaoPeng',
+  description: '生活如此多娇，岂能辜负。',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourblog.com',
 
   // ============ Logo ============
@@ -13,9 +13,9 @@ export const siteConfig = {
   // ============ 作者信息 ============
   author: {
     name: 'XiaoPeng',
-    role: '全栈开发者 / 技术爱好者',
+    role: 'VibeCoding爱好者',
     bio: '热爱技术的开发者，喜欢探索新技术和分享知识。专注于 AI 工具开发与 Web 应用。',
-    avatar: 'https://github.com/xiaopenghuang.png',
+    avatar: 'src/config/1.jpg',
     email: process.env.NEXT_PUBLIC_EMAIL || '',
     qq: process.env.NEXT_PUBLIC_QQ || '',
     github: 'https://github.com/xiaopenghuang',
