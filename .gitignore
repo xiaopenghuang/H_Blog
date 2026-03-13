@@ -19,6 +19,7 @@
 
 # production
 /build
+/draft
 
 # misc
 .DS_Store
@@ -43,3 +44,5 @@ next-env.d.ts
 
 DEPLOY.md
 CLAUDE.md
+AGENTS.md
+BLOG_WRITING_GUIDE.md

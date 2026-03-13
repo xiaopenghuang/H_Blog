@@ -23,8 +23,16 @@ export default function Sidebar() {
         <div className="glass-card rounded-2xl p-5 shadow-card animate-fade-in-up">
           <div className="flex flex-col items-center text-center">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent via-pink to-cyan p-0.5 mb-3 animate-pulse-glow">
-              <div className="w-full h-full rounded-full bg-surface flex items-center justify-center text-2xl font-bold text-foreground">
-                {siteConfig.author.avatar}
+              <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden">
+                {siteConfig.author.avatar.startsWith('http') || siteConfig.author.avatar.startsWith('/') ? (
+                  <img
+                    src={siteConfig.author.avatar}
+                    alt={siteConfig.author.name}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  <span className="text-2xl font-bold gradient-text">{siteConfig.author.avatar}</span>
+                )}
               </div>
             </div>
             <h3 className="font-bold text-foreground text-base">{siteConfig.author.name}</h3>

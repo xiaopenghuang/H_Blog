@@ -18,8 +18,8 @@ export default function Header() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group">
-          <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-accent via-violet to-pink flex items-center justify-center shadow-button group-hover:shadow-glow-accent transition-all duration-300 group-hover:scale-105 overflow-hidden">
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-cyan to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-accent via-violet to-pink flex items-center justify-center shadow-button group-hover:shadow-glow-accent transition-all duration-300 group-hover:scale-105 overflow-hidden">
+            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-cyan to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <span className="relative z-10 text-white font-black text-xs sm:text-sm tracking-tight">{siteConfig.logo.text}</span>
           </div>
           <div className="flex flex-col leading-none">

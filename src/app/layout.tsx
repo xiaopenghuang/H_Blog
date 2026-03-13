@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import ThemeProvider from "@/components/ThemeProvider";
+import Preloader from "@/components/Preloader";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -58,6 +59,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-background text-foreground`}
       >
         <ThemeProvider>
+          <Preloader />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

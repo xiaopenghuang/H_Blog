@@ -23,22 +23,16 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden wave-divider">
         <div className="hero-gradient absolute inset-0" />
-        <div className="grid-background absolute inset-0 opacity-30" />
-        <MeteorShower count={siteConfig.homepage.meteorCount} />
+        <div className="grid-background absolute inset-0 opacity-40" />
+        <div className="hidden sm:block">
+          <MeteorShower count={siteConfig.homepage.meteorCount} />
+        </div>
 
-        {/* Floating orbs */}
-        <div className="orb w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 bg-accent/20 top-[-80px] left-[-40px] animate-float-slow" />
-        <div className="orb w-40 sm:w-52 md:w-64 h-40 sm:h-52 md:h-64 bg-cyan/15 bottom-[-40px] right-[-20px] animate-float-slower" />
-        <div className="orb w-32 sm:w-40 md:w-48 h-32 sm:h-40 md:h-48 bg-pink/12 top-[20%] right-[30%] animate-float hidden sm:block" />
-        <div className="orb w-24 sm:w-32 h-24 sm:h-32 bg-violet/10 bottom-[10%] left-[25%] animate-float-slow hidden sm:block" />
+        {/* Floating orbs - 简化为2个 */}
+        <div className="orb w-56 sm:w-72 md:w-80 h-56 sm:h-72 md:h-80 bg-accent/12 top-[-60px] left-[-30px] animate-float-slow" />
+        <div className="orb w-48 sm:w-60 md:w-72 h-48 sm:h-60 md:h-72 bg-cyan/10 bottom-[-40px] right-[-20px] animate-float-slower" />
 
-        {/* Particles - hidden on mobile */}
-        <div className="particle top-[15%] left-[12%] bg-accent hidden sm:block" style={{ '--duration': '4s', '--delay': '0s' } as React.CSSProperties} />
-        <div className="particle top-[35%] right-[15%] bg-pink hidden sm:block" style={{ '--duration': '3s', '--delay': '1s' } as React.CSSProperties} />
-        <div className="particle top-[60%] left-[40%] bg-cyan hidden sm:block" style={{ '--duration': '5s', '--delay': '0.5s' } as React.CSSProperties} />
-        <div className="particle top-[25%] right-[40%] bg-orange hidden sm:block" style={{ '--duration': '3.5s', '--delay': '1.5s' } as React.CSSProperties} />
-
-        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 py-12 md:py-24">
+        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 py-10 sm:py-16 md:py-24">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
             {/* Left: Hero Text */}
             <div className="flex-1 animate-fade-in-up">
@@ -64,7 +58,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/posts"
-                  className="btn-gradient inline-flex items-center px-7 py-3.5 text-white font-semibold rounded-xl shadow-button hover:shadow-glow-accent"
+                  className="btn-gradient inline-flex items-center px-7 py-3.5 text-white font-semibold rounded-lg shadow-button hover:shadow-glow-accent"
                 >
                   <span className="relative z-10 flex items-center">
                     浏览文章
@@ -75,7 +69,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/about"
-                  className="inline-flex items-center px-7 py-3.5 glass-card text-foreground font-semibold rounded-xl hover-lift hover:shadow-card-hover border border-border/50"
+                  className="inline-flex items-center px-7 py-3.5 glass-card text-foreground font-semibold rounded-lg hover-lift hover:shadow-card-hover border border-border/50"
                 >
                   了解更多
                 </Link>
@@ -100,7 +94,7 @@ export default function Home() {
             { label: '阅读时间', value: '∞', gradient: 'from-cyan to-green', icon: '⏱️' },
             { label: '创作中', value: '...', gradient: 'from-orange to-pink', icon: '🚀' },
           ].map((stat) => (
-            <div key={stat.label} className="glass-card rounded-xl p-5 text-center hover-lift border border-border/30">
+            <div key={stat.label} className="glass-card rounded-lg p-5 text-center hover-lift border border-border/30 shadow-card hover:shadow-card-hover">
               <div className="text-2xl mb-1.5">{stat.icon}</div>
               <div className={`text-2xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent`}>
                 {stat.value}
@@ -132,7 +126,7 @@ export default function Home() {
             <Link
               key={post.slug}
               href={`/posts/${post.slug}`}
-              className={`block gradient-border-card hover-lift shadow-card hover:shadow-card-hover p-6 animate-fade-in-up stagger-${Math.min(i + 1, 5)} group`}
+              className={`block gradient-border-card hover-lift shadow-card hover:shadow-card-hover p-6 rounded-lg animate-fade-in-up stagger-${Math.min(i + 1, 5)} group`}
             >
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {post.tags.map((tag) => (
