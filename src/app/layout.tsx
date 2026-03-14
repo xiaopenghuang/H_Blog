@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import ThemeProvider from "@/components/ThemeProvider";
-import Preloader from "@/components/Preloader";
+
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
@@ -42,6 +43,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
+    canonical: '/',
     types: {
       'application/rss+xml': '/rss.xml',
     },
@@ -59,7 +61,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-background text-foreground`}
       >
         <ThemeProvider>
-          <Preloader />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

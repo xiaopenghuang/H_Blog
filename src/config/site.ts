@@ -24,17 +24,16 @@ export const siteConfig = {
 
   // ============ 导航菜单 ============
   navItems: [
-    { href: '/', label: '首页', icon: '🏠' },
-    { href: '/posts', label: '文章', icon: '📝' },
-    { href: '/tags', label: '标签', icon: '🏷️' },
-    { href: '/archives', label: '归档', icon: '📚' },
-    { href: '/about', label: '关于', icon: '👋' },
+    { href: '/', label: '首页' },
+    { href: '/posts', label: '文章' },
+    { href: '/tags', label: '标签' },
+    { href: '/archives', label: '归档' },
+    { href: '/about', label: '关于' },
   ],
 
   // ============ 首页设置 ============
   homepage: {
     recentPostsCount: 4,
-    meteorCount: 8,
   },
 
   // ============ GitHub 仓库展示 ============

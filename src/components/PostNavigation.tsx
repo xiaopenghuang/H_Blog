@@ -16,7 +16,7 @@ export default function PostNavigation({ prev, next }: PostNavigationProps) {
       {prev ? (
         <Link
           href={`/posts/${prev.slug}`}
-          className="group gradient-border-card hover-lift shadow-card hover:shadow-card-hover p-6 flex flex-col"
+          className="group card shadow-card hover:shadow-card-hover p-6 flex flex-col"
         >
           <span className="text-xs text-foreground-secondary mb-2 flex items-center">
             <svg className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-smooth" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +35,7 @@ export default function PostNavigation({ prev, next }: PostNavigationProps) {
       {next ? (
         <Link
           href={`/posts/${next.slug}`}
-          className="group gradient-border-card hover-lift shadow-card hover:shadow-card-hover p-6 flex flex-col text-right"
+          className="group card shadow-card hover:shadow-card-hover p-6 flex flex-col text-right"
         >
           <span className="text-xs text-foreground-secondary mb-2 flex items-center justify-end">
             下一篇

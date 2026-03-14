@@ -2,14 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllTags, getPostsByTag } from '@/lib/posts';
 import Sidebar from '@/components/Sidebar';
-
-const TAG_COLORS = ['tag-purple', 'tag-cyan', 'tag-pink', 'tag-orange', 'tag-green'];
-
-function getTagColor(tag: string) {
-  let hash = 0;
-  for (let i = 0; i < tag.length; i++) hash = tag.charCodeAt(i) + ((hash << 5) - hash);
-  return TAG_COLORS[Math.abs(hash) % TAG_COLORS.length];
-}
+import { getTagColor } from '@/lib/tagColors';
 
 interface TagPageProps {
   params: Promise<{ tag: string }>;
@@ -33,24 +26,16 @@ export default async function TagPage({ params }: TagPageProps) {
 
   return (
     <div className="min-h-screen">
-      <section className="relative overflow-hidden wave-divider">
-        <div className="hero-gradient absolute inset-0" />
-        <div className="grid-background absolute inset-0 opacity-40" />
-        <div className="orb w-48 h-48 bg-pink/15 top-[-20px] right-[10%] animate-float" />
-        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 py-14 animate-fade-in-up">
+      <section className="border-b border-border">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-14">
           <Link href="/tags" className="inline-flex items-center text-accent hover:text-accent-light transition-smooth mb-6 group">
             <svg className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-smooth" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             所有标签
           </Link>
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3 flex items-center gap-3">
-            <span className="w-11 h-11 bg-gradient-to-br from-accent to-pink text-white rounded-xl flex items-center justify-center shadow-button">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-              </svg>
-            </span>
-            <span className="gradient-text">{decodedTag}</span>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            {decodedTag}
           </h1>
           <p className="text-foreground-secondary">共 <span className="font-semibold text-accent">{posts.length}</span> 篇文章</p>
         </div>
@@ -60,7 +45,7 @@ export default async function TagPage({ params }: TagPageProps) {
         <div className="flex gap-4 md:gap-8">
           <div className="flex-1 min-w-0 space-y-4">
             {posts.map((post, i) => (
-              <article key={post.slug} className={`gradient-border-card hover-lift shadow-card hover:shadow-card-hover p-5 animate-fade-in-up stagger-${Math.min(i + 1, 5)}`}>
+              <article key={post.slug} className="card shadow-card hover:shadow-card-hover p-5">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                   <div className="flex-1">
                     <div className="flex flex-wrap gap-1.5 mb-1.5">

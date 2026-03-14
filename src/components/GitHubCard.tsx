@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 interface RepoData {
   full_name: string;
@@ -41,7 +42,7 @@ function SmallFallbackPreview({ data }: { data: RepoData }) {
     <div className="aspect-[2/1] bg-gradient-to-br from-[#0d1117] via-[#161b22] to-[#0d1117] p-4 flex flex-col justify-between overflow-hidden relative">
       <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full" />
       <div className="flex items-center gap-2.5 relative">
-        <img src={data.owner.avatar_url} alt="" className="w-8 h-8 rounded-md border border-white/10" />
+        <Image src={data.owner.avatar_url} alt="" width={32} height={32} className="rounded-md border border-white/10" />
         <div className="min-w-0">
           <div className="text-white/50 text-[0.6rem]">{data.owner.login}</div>
           <div className="text-white text-sm font-bold truncate">{data.full_name.split('/')[1]}</div>
@@ -79,15 +80,31 @@ export default function GitHubCard({ repo }: { repo: string }) {
   const ogImageUrl = `https://opengraph.githubassets.com/1/${repo}`;
 
   useEffect(() => {
+    const cacheKey = `gh-repo-${repo}`;
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) {
+      try {
+        const { data: cachedData, ts } = JSON.parse(cached);
+        if (Date.now() - ts < 3600000) {
+          setData(cachedData);
+          setLoading(false);
+          return;
+        }
+      } catch { /* ignore malformed cache */ }
+    }
     fetch(`https://api.github.com/repos/${repo}`)
       .then(res => res.ok ? res.json() : null)
-      .then(d => { setData(d); setLoading(false); })
+      .then(d => {
+        if (d) localStorage.setItem(cacheKey, JSON.stringify({ data: d, ts: Date.now() }));
+        setData(d);
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
   }, [repo]);
 
   if (loading) {
     return (
-      <div className="gradient-border-card shadow-card overflow-hidden animate-pulse">
+      <div className="card shadow-card overflow-hidden animate-pulse">
         <div className="aspect-[2/1] bg-secondary" />
         <div className="p-3">
           <div className="h-3 w-24 bg-secondary rounded mb-2" />
@@ -103,7 +120,7 @@ export default function GitHubCard({ repo }: { repo: string }) {
         href={`https://github.com/${repo}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="block gradient-border-card shadow-card hover:shadow-card-hover hover-lift overflow-hidden transition-smooth group"
+        className="block card shadow-card hover:shadow-card-hover overflow-hidden transition-smooth group"
       >
         <div className="aspect-[2/1] bg-gradient-to-br from-[#0d1117] to-[#161b22] flex items-center justify-center">
           <svg className="w-8 h-8 text-white/15" fill="currentColor" viewBox="0 0 24 24">
@@ -128,18 +145,19 @@ export default function GitHubCard({ repo }: { repo: string }) {
       href={data.html_url}
       target="_blank"
       rel="noopener noreferrer"
-      className="block gradient-border-card shadow-card hover:shadow-card-hover hover-lift overflow-hidden transition-smooth group"
+      className="block card shadow-card hover:shadow-card-hover overflow-hidden transition-smooth group"
     >
       {/* Preview Area */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden aspect-[2/1]">
         {!imgError ? (
           <>
             {!imgLoaded && <SmallFallbackPreview data={data} />}
-            <img
+            <Image
               src={ogImageUrl}
               alt={data.full_name}
-              className={`w-full aspect-[2/1] object-cover group-hover:scale-[1.02] transition-transform duration-500 ${imgLoaded ? '' : 'absolute inset-0'}`}
-              loading="lazy"
+              fill
+              sizes="(max-width: 768px) 100vw, 300px"
+              className={`object-cover group-hover:scale-[1.02] transition-transform duration-500 ${imgLoaded ? '' : 'opacity-0'}`}
               onLoad={() => setImgLoaded(true)}
               onError={() => setImgError(true)}
             />
@@ -173,7 +191,7 @@ export default function GitHubCard({ repo }: { repo: string }) {
             </span>
           )}
           <span className="flex items-center gap-0.5">
-            <svg className="w-3 h-3 text-orange" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3 h-3 text-foreground-secondary" fill="currentColor" viewBox="0 0 24 24">
               <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
             </svg>
             {data.stargazers_count}

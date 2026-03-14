@@ -7,23 +7,13 @@ export const metadata: Metadata = {
   description: '了解更多关于我和这个博客的故事',
 };
 
-const TECH_ICONS: Record<string, string> = {
-  'TypeScript': '🔷', 'React': '⚛️', 'Next.js': '▲', 'Node.js': '🟩', 'Tailwind CSS': '🎨', 'PostgreSQL': '🐘',
-};
-
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
-      <section className="relative overflow-hidden wave-divider">
-        <div className="hero-gradient absolute inset-0" />
-        <div className="grid-background absolute inset-0 opacity-40" />
-        <div className="orb w-60 h-60 bg-cyan/15 top-[-30px] right-[10%] animate-float-slow" />
-        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 py-14 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan/10 text-cyan text-sm font-medium mb-4">
-            👋 关于
-          </div>
+      <section className="border-b border-border">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-14">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-            关于<span className="gradient-text">我</span>
+            关于我
           </h1>
           <p className="text-foreground-secondary">了解更多关于我和这个博客的故事</p>
         </div>
@@ -32,9 +22,9 @@ export default function AboutPage() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-10">
         <div className="flex gap-4 md:gap-8">
           <div className="flex-1 min-w-0 space-y-5">
-            <div className="gradient-border-card shadow-card p-7 animate-fade-in-up stagger-1">
+            <div className="card shadow-card p-7">
               <h3 className="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center text-sm">👋</span>
+                <svg className="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" /></svg>
                 你好！
               </h3>
               <p className="text-foreground-secondary leading-relaxed text-sm">
@@ -42,9 +32,9 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="gradient-border-card shadow-card p-7 animate-fade-in-up stagger-2">
+            <div className="card shadow-card p-7">
               <h3 className="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-pink/10 flex items-center justify-center text-sm">🚀</span>
+                <svg className="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
                 关于这个博客
               </h3>
               <p className="text-foreground-secondary leading-relaxed text-sm">
@@ -53,37 +43,33 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="gradient-border-card shadow-card p-7 animate-fade-in-up stagger-3">
+            <div className="card shadow-card p-7">
               <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-cyan/10 flex items-center justify-center text-sm">💻</span>
+                <svg className="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
                 技术栈
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
                 {siteConfig.techStack.map((tech) => (
-                  <div key={tech} className="flex items-center gap-2 px-3 py-2.5 glass-card rounded-xl hover-lift">
-                    <span className="text-base">{TECH_ICONS[tech] || '🔧'}</span>
+                  <div key={tech} className="flex items-center gap-2 px-3 py-2.5 card rounded-xl">
                     <span className="font-medium text-foreground text-sm">{tech}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="gradient-border-card shadow-card p-7 animate-fade-in-up stagger-4">
+            <div className="card shadow-card p-7">
               <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-orange/10 flex items-center justify-center text-sm">📫</span>
+                <svg className="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                 联系我
               </h3>
               <div className="space-y-2">
                 <a href={`mailto:${siteConfig.author.email}`} className="flex items-center gap-3 text-sm text-foreground-secondary hover:text-accent transition-smooth p-2 rounded-lg hover:bg-accent/5">
-                  <span className="w-7 h-7 rounded-lg bg-pink/10 flex items-center justify-center text-xs">📧</span>
                   {siteConfig.author.email}
                 </a>
                 <a href={siteConfig.author.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-foreground-secondary hover:text-accent transition-smooth p-2 rounded-lg hover:bg-accent/5">
-                  <span className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center text-xs">🐙</span>
                   {siteConfig.author.github}
                 </a>
                 <span className="flex items-center gap-3 text-sm text-foreground-secondary p-2">
-                  <span className="w-7 h-7 rounded-lg bg-cyan/10 flex items-center justify-center text-xs">💬</span>
                   QQ: {siteConfig.author.qq}
                 </span>
               </div>

@@ -51,7 +51,15 @@ export default function PostActions({ slug, title }: PostActionsProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* fallback: ignore */
+      // Fallback: select text from a temporary input
+      const input = document.createElement('input');
+      input.value = getUrl();
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   };
 
@@ -74,12 +82,12 @@ export default function PostActions({ slug, title }: PostActionsProps) {
         onClick={handleLike}
         className={`inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-medium text-sm transition-all duration-300 ${
           liked
-            ? 'bg-pink/15 text-pink border border-pink/30 shadow-glow-pink'
-            : 'bg-secondary/80 text-foreground-secondary hover:bg-pink/10 hover:text-pink border border-border/50'
+            ? 'bg-accent/15 text-accent border border-accent/30'
+            : 'bg-secondary/80 text-foreground-secondary hover:bg-accent/10 hover:text-accent border border-border/50'
         }`}
       >
         <svg
-          className={`w-5 h-5 ${liked ? 'like-pop fill-pink' : ''}`}
+          className={`w-5 h-5 ${liked ? 'like-pop fill-accent' : ''}`}
           fill={liked ? 'currentColor' : 'none'}
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -140,7 +148,7 @@ export default function PostActions({ slug, title }: PostActionsProps) {
         onClick={() => {
           document.getElementById('comments')?.scrollIntoView({ behavior: 'smooth' });
         }}
-        className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-medium text-sm bg-secondary/80 text-foreground-secondary hover:bg-cyan/10 hover:text-cyan border border-border/50 transition-all duration-300"
+        className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl font-medium text-sm bg-secondary/80 text-foreground-secondary hover:bg-accent/10 hover:text-accent border border-border/50 transition-all duration-300"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />

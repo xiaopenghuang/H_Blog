@@ -9,14 +9,7 @@ import PostNavigation from '@/components/PostNavigation';
 import RelatedPosts from '@/components/RelatedPosts';
 import PostActions from '@/components/PostActions';
 import Comments from '@/components/Comments';
-
-const TAG_COLORS = ['tag-purple', 'tag-cyan', 'tag-pink', 'tag-orange', 'tag-green'];
-
-function getTagColor(tag: string) {
-  let hash = 0;
-  for (let i = 0; i < tag.length; i++) hash = tag.charCodeAt(i) + ((hash << 5) - hash);
-  return TAG_COLORS[Math.abs(hash) % TAG_COLORS.length];
-}
+import { getTagColor } from '@/lib/tagColors';
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -69,12 +62,8 @@ export default async function PostPage({ params }: PostPageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ReadingProgress />
 
-      <section className="relative overflow-hidden wave-divider">
-        <div className="hero-gradient absolute inset-0" />
-        <div className="grid-background absolute inset-0 opacity-40" />
-        <div className="orb w-56 h-56 bg-accent/15 top-[-30px] right-[5%] animate-float-slow" />
-
-        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 py-10 sm:py-14 animate-fade-in-up">
+      <section className="border-b border-border">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-10 sm:py-14">
           <Link href="/posts" className="inline-flex items-center text-accent hover:text-accent-light transition-smooth mb-6 group">
             <svg className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-smooth" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

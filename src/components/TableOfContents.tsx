@@ -61,7 +61,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
 
   return (
     <nav className="hidden xl:block sticky top-24 w-64 shrink-0" aria-label="目录">
-      <div className="glass-card rounded-2xl shadow-card p-4">
+      <div className="card shadow-card p-4">
         <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
           <span className="w-6 h-6 rounded-md bg-accent/10 flex items-center justify-center">
             <svg className="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">

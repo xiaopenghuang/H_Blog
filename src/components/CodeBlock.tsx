@@ -13,15 +13,21 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
     codeToHtml(code, {
       lang: language || 'text',
       theme: 'github-dark',
-    }).then(setHtml).catch(() => {
+    }).then(result => {
+      if (!cancelled) setHtml(result);
+    }).catch(() => {
       codeToHtml(code, {
         lang: 'text',
         theme: 'github-dark',
-      }).then(setHtml);
+      }).then(result => {
+        if (!cancelled) setHtml(result);
+      });
     });
+    return () => { cancelled = true; };
   }, [code, language]);
 
   const handleCopy = async () => {

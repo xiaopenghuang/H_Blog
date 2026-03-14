@@ -11,7 +11,11 @@ export async function GET() {
       date: post.date,
     }));
 
-    return NextResponse.json(searchData);
+    return NextResponse.json(searchData, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+      },
+    });
   } catch {
     return NextResponse.json([], { status: 500 });
   }

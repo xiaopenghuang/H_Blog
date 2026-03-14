@@ -1,17 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/config/site';
 import GitHubCard from './GitHubCard';
 
-const navItems = [
-  { href: '/', label: '首页', icon: '🏠' },
-  { href: '/posts', label: '文章', icon: '📝' },
-  { href: '/tags', label: '标签', icon: '🏷️' },
-  { href: '/archives', label: '归档', icon: '📚' },
-  { href: '/about', label: '关于', icon: '👋' },
-];
+const navItems = siteConfig.navItems;
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -20,23 +15,25 @@ export default function Sidebar() {
     <aside className="w-72 shrink-0 hidden lg:block">
       <div className="sticky top-20 space-y-5">
         {/* Profile Card */}
-        <div className="glass-card rounded-2xl p-5 shadow-card animate-fade-in-up">
+        <div className="card p-5 shadow-card">
           <div className="flex flex-col items-center text-center">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent via-pink to-cyan p-0.5 mb-3 animate-pulse-glow">
-              <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden">
+            <div className="w-20 h-20 rounded-full border-2 border-border p-0.5 mb-3">
+              <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden relative">
                 {siteConfig.author.avatar.startsWith('http') || siteConfig.author.avatar.startsWith('/') ? (
-                  <img
+                  <Image
                     src={siteConfig.author.avatar}
                     alt={siteConfig.author.name}
-                    className="w-full h-full object-cover rounded-full"
+                    fill
+                    sizes="80px"
+                    className="object-cover rounded-full"
                   />
                 ) : (
-                  <span className="text-2xl font-bold gradient-text">{siteConfig.author.avatar}</span>
+                  <span className="text-2xl font-bold text-foreground-secondary">{siteConfig.author.avatar}</span>
                 )}
               </div>
             </div>
             <h3 className="font-bold text-foreground text-base">{siteConfig.author.name}</h3>
-            <p className="text-xs gradient-text font-medium mt-0.5">{siteConfig.author.role}</p>
+            <p className="text-xs text-foreground-secondary font-medium mt-0.5">{siteConfig.author.role}</p>
             <p className="text-xs text-foreground-secondary mt-2 leading-relaxed">
               {siteConfig.author.bio}
             </p>
@@ -56,7 +53,7 @@ export default function Sidebar() {
               </a>
               <a
                 href={`mailto:${siteConfig.author.email}`}
-                className="w-8 h-8 rounded-lg bg-secondary/60 hover:bg-pink/10 flex items-center justify-center text-foreground-secondary hover:text-pink transition-smooth"
+                className="w-8 h-8 rounded-lg bg-secondary/60 hover:bg-accent/10 flex items-center justify-center text-foreground-secondary hover:text-accent transition-smooth"
                 aria-label="Email"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,7 +62,7 @@ export default function Sidebar() {
               </a>
               <a
                 href={`tencent://message/?uin=${siteConfig.author.qq}&Site=&Menu=yes`}
-                className="w-8 h-8 rounded-lg bg-secondary/60 hover:bg-cyan/10 flex items-center justify-center text-foreground-secondary hover:text-cyan transition-smooth"
+                className="w-8 h-8 rounded-lg bg-secondary/60 hover:bg-accent/10 flex items-center justify-center text-foreground-secondary hover:text-accent transition-smooth"
                 aria-label="QQ"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -74,7 +71,7 @@ export default function Sidebar() {
               </a>
               <a
                 href="/rss.xml"
-                className="w-8 h-8 rounded-lg bg-secondary/60 hover:bg-orange/10 flex items-center justify-center text-foreground-secondary hover:text-orange transition-smooth"
+                className="w-8 h-8 rounded-lg bg-secondary/60 hover:bg-accent/10 flex items-center justify-center text-foreground-secondary hover:text-accent transition-smooth"
                 aria-label="RSS"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -86,7 +83,7 @@ export default function Sidebar() {
         </div>
 
         {/* Quick Nav */}
-        <div className="glass-card rounded-2xl p-4 shadow-card animate-fade-in-up stagger-1">
+        <div className="card p-4 shadow-card">
           <h4 className="text-xs font-semibold text-foreground-secondary uppercase tracking-wider mb-2 px-2">导航</h4>
           <nav className="space-y-0.5">
             {navItems.map((item) => {
@@ -102,7 +99,6 @@ export default function Sidebar() {
                       : 'text-foreground-secondary hover:text-foreground hover:bg-secondary/60'
                   }`}
                 >
-                  <span className="text-base">{item.icon}</span>
                   {item.label}
                 </Link>
               );
@@ -112,7 +108,7 @@ export default function Sidebar() {
 
         {/* GitHub Repos */}
         {siteConfig.githubRepos.length > 0 && (
-          <div className="animate-fade-in-up stagger-2">
+          <div>
             <h4 className="text-xs font-semibold text-foreground-secondary uppercase tracking-wider mb-3 px-1">GitHub 项目</h4>
             <div className="space-y-3">
               {siteConfig.githubRepos.map((repo) => (

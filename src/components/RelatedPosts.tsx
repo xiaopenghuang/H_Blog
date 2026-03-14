@@ -1,13 +1,6 @@
 import Link from 'next/link';
 import { PostMeta } from '@/lib/posts';
-
-const TAG_COLORS = ['tag-purple', 'tag-cyan', 'tag-pink', 'tag-orange', 'tag-green'];
-
-function getTagColor(tag: string) {
-  let hash = 0;
-  for (let i = 0; i < tag.length; i++) hash = tag.charCodeAt(i) + ((hash << 5) - hash);
-  return TAG_COLORS[Math.abs(hash) % TAG_COLORS.length];
-}
+import { getTagColor } from '@/lib/tagColors';
 
 interface RelatedPostsProps {
   posts: PostMeta[];
@@ -19,7 +12,7 @@ export default function RelatedPosts({ posts }: RelatedPostsProps) {
   }
 
   return (
-    <div className="glass-card rounded-2xl shadow-card p-6 md:p-8">
+    <div className="card shadow-card p-6 md:p-8">
       <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
         <span className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
           <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">

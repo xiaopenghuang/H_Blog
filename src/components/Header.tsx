@@ -14,16 +14,15 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 glass-card border-b border-border/50">
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group">
-          <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-accent via-violet to-pink flex items-center justify-center shadow-button group-hover:shadow-glow-accent transition-all duration-300 group-hover:scale-105 overflow-hidden">
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-cyan to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <span className="relative z-10 text-white font-black text-xs sm:text-sm tracking-tight">{siteConfig.logo.text}</span>
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-accent flex items-center justify-center">
+            <span className="text-white font-black text-xs sm:text-sm tracking-tight">{siteConfig.logo.text}</span>
           </div>
           <div className="flex flex-col leading-none">
-            <span className="text-sm sm:text-base font-extrabold gradient-text">{siteConfig.name}</span>
+            <span className="text-sm sm:text-base font-bold text-foreground">{siteConfig.name}</span>
             <span className="text-[0.55rem] sm:text-[0.6rem] text-foreground-secondary font-medium tracking-wider hidden sm:block">{siteConfig.logo.subtitle}</span>
           </div>
         </Link>
@@ -72,7 +71,7 @@ export default function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <nav className="md:hidden border-t border-border/50 glass-card animate-fade-in-down">
+        <nav className="md:hidden border-t border-border/50 bg-background/80 backdrop-blur-sm animate-fade-in-down">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-3 space-y-1">
             {navItems.map((item) => {
               const isActive = pathname === item.href ||
@@ -84,13 +83,12 @@ export default function Header() {
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-smooth ${
+                  className={`flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-smooth ${
                     isActive
                       ? 'text-accent bg-accent/10'
                       : 'text-foreground-secondary hover:text-foreground hover:bg-secondary/80'
                   }`}
                 >
-                  <span>{item.icon}</span>
                   {item.label}
                 </Link>
               );

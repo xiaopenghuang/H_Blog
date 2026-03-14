@@ -5,17 +5,16 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-border/50">
-      <div className="mesh-gradient absolute inset-0 opacity-30" />
-      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 py-8 sm:py-10">
+    <footer className="border-t border-border">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-3">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-accent via-violet to-pink flex items-center justify-center">
+              <div className="w-7 h-7 rounded-lg bg-accent flex items-center justify-center">
                 <span className="text-white font-black text-xs">{siteConfig.logo.text}</span>
               </div>
-              <span className="text-sm font-bold gradient-text">{siteConfig.name}</span>
+              <span className="text-sm font-bold text-foreground">{siteConfig.name}</span>
             </Link>
             <p className="text-sm text-foreground-secondary leading-relaxed">
               {siteConfig.description}
@@ -55,7 +54,7 @@ export default function Footer() {
               </a>
               <a
                 href={`mailto:${siteConfig.author.email}`}
-                className="w-8 h-8 rounded-lg bg-secondary/80 hover:bg-pink/10 flex items-center justify-center text-foreground-secondary hover:text-pink transition-smooth"
+                className="w-8 h-8 rounded-lg bg-secondary/80 hover:bg-accent/10 flex items-center justify-center text-foreground-secondary hover:text-accent transition-smooth"
                 aria-label="Email"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +63,7 @@ export default function Footer() {
               </a>
               <a
                 href="/rss.xml"
-                className="w-8 h-8 rounded-lg bg-secondary/80 hover:bg-orange/10 flex items-center justify-center text-foreground-secondary hover:text-orange transition-smooth"
+                className="w-8 h-8 rounded-lg bg-secondary/80 hover:bg-accent/10 flex items-center justify-center text-foreground-secondary hover:text-accent transition-smooth"
                 aria-label="RSS"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -81,7 +80,7 @@ export default function Footer() {
             &copy; {currentYear} {siteConfig.name}. {siteConfig.footer.text}
           </p>
           <p className="text-xs text-foreground-secondary">
-            Made with <span className="text-pink">♥</span> by {siteConfig.author.name}
+            Made by {siteConfig.author.name}
           </p>
         </div>
       </div>

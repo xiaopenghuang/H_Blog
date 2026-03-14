@@ -3,73 +3,56 @@ import { getAllPosts } from '@/lib/posts';
 import { siteConfig } from '@/config/site';
 import HeroProfileCard from '@/components/HeroProfileCard';
 import GitHubCardLarge from '@/components/GitHubCardLarge';
-import MeteorShower from '@/components/MeteorShower';
-
-const TAG_COLORS = ['tag-purple', 'tag-cyan', 'tag-pink', 'tag-orange', 'tag-green'];
-
-function getTagColor(tag: string) {
-  let hash = 0;
-  for (let i = 0; i < tag.length; i++) hash = tag.charCodeAt(i) + ((hash << 5) - hash);
-  return TAG_COLORS[Math.abs(hash) % TAG_COLORS.length];
-}
+import { getTagColor } from '@/lib/tagColors';
 
 export default function Home() {
   const allPosts = getAllPosts();
   const recentPosts = allPosts.slice(0, siteConfig.homepage.recentPostsCount);
   const totalTags = new Set(allPosts.flatMap(p => p.tags)).size;
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    author: {
+      '@type': 'Person',
+      name: siteConfig.author.name,
+      url: siteConfig.author.github,
+    },
+  };
+
   return (
     <div className="min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* Hero Section */}
-      <section className="relative overflow-hidden wave-divider">
-        <div className="hero-gradient absolute inset-0" />
-        <div className="grid-background absolute inset-0 opacity-40" />
-        <div className="hidden sm:block">
-          <MeteorShower count={siteConfig.homepage.meteorCount} />
-        </div>
-
-        {/* Floating orbs - 简化为2个 */}
-        <div className="orb w-56 sm:w-72 md:w-80 h-56 sm:h-72 md:h-80 bg-accent/12 top-[-60px] left-[-30px] animate-float-slow" />
-        <div className="orb w-48 sm:w-60 md:w-72 h-48 sm:h-60 md:h-72 bg-cyan/10 bottom-[-40px] right-[-20px] animate-float-slower" />
-
-        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 py-10 sm:py-16 md:py-24">
+      <section className="border-b border-border">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-10 sm:py-16 md:py-24">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
             {/* Left: Hero Text */}
             <div className="flex-1 animate-fade-in-up">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6 backdrop-blur-sm border border-accent/20">
-                <span className="w-2 h-2 rounded-full bg-green animate-pulse-glow" />
-                欢迎访问
-              </div>
               <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-foreground leading-[1.15] mb-6">
                 探索技术与创意的
-                <span className="gradient-text block mt-2">无限可能</span>
+                <span className="text-accent block mt-2">无限可能</span>
               </h1>
               <p className="text-lg text-foreground-secondary mb-8 leading-relaxed max-w-xl">
                 在这里，我分享关于技术、设计和生活的思考。希望这些文字能给你带来一些启发和帮助。
               </p>
 
-              {/* Tech Stack Pills */}
-              <div className="flex flex-wrap gap-2 mb-8">
-                {siteConfig.techStack.map((tech) => (
-                  <span key={tech} className="tech-pill">{tech}</span>
-                ))}
-              </div>
-
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/posts"
-                  className="btn-gradient inline-flex items-center px-7 py-3.5 text-white font-semibold rounded-lg shadow-button hover:shadow-glow-accent"
+                  className="inline-flex items-center px-7 py-3.5 bg-accent text-white font-semibold rounded-lg hover:bg-accent-light transition-smooth"
                 >
-                  <span className="relative z-10 flex items-center">
-                    浏览文章
-                    <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
+                  浏览文章
+                  <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </Link>
                 <Link
                   href="/about"
-                  className="inline-flex items-center px-7 py-3.5 glass-card text-foreground font-semibold rounded-lg hover-lift hover:shadow-card-hover border border-border/50"
+                  className="inline-flex items-center px-7 py-3.5 bg-secondary text-foreground font-semibold rounded-lg hover:bg-border transition-smooth border border-border"
                 >
                   了解更多
                 </Link>
@@ -84,19 +67,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Main Content - Full Width */}
+      {/* Main Content */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-10 md:py-12">
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 animate-fade-in-up">
           {[
-            { label: '文章', value: allPosts.length, gradient: 'from-accent to-violet', icon: '📝' },
-            { label: '标签', value: totalTags, gradient: 'from-pink to-rose', icon: '🏷️' },
-            { label: '阅读时间', value: '∞', gradient: 'from-cyan to-green', icon: '⏱️' },
-            { label: '创作中', value: '...', gradient: 'from-orange to-pink', icon: '🚀' },
+            { label: '文章', value: allPosts.length },
+            { label: '标签', value: totalTags },
+            { label: '阅读时间', value: '∞' },
+            { label: '创作中', value: '...' },
           ].map((stat) => (
-            <div key={stat.label} className="glass-card rounded-lg p-5 text-center hover-lift border border-border/30 shadow-card hover:shadow-card-hover">
-              <div className="text-2xl mb-1.5">{stat.icon}</div>
-              <div className={`text-2xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent`}>
+            <div key={stat.label} className="card rounded-lg p-5 text-center shadow-card">
+              <div className="text-2xl font-bold text-foreground">
                 {stat.value}
               </div>
               <div className="text-sm text-foreground-secondary mt-1">{stat.label}</div>
@@ -107,7 +89,7 @@ export default function Home() {
         {/* Recent Posts */}
         <div className="flex items-center justify-between mb-6 animate-fade-in">
           <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
-            <span className="w-1.5 h-7 bg-gradient-to-b from-accent to-cyan rounded-full" />
+            <span className="w-1 h-6 bg-accent rounded-full" />
             最新文章
           </h2>
           <Link
@@ -122,11 +104,11 @@ export default function Home() {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 mb-14">
-          {recentPosts.map((post, i) => (
+          {recentPosts.map((post) => (
             <Link
               key={post.slug}
               href={`/posts/${post.slug}`}
-              className={`block gradient-border-card hover-lift shadow-card hover:shadow-card-hover p-6 rounded-lg animate-fade-in-up stagger-${Math.min(i + 1, 5)} group`}
+              className="block card shadow-card hover:shadow-card-hover p-6 rounded-lg group"
             >
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {post.tags.map((tag) => (
@@ -144,7 +126,7 @@ export default function Home() {
               <p className="text-foreground-secondary text-sm mb-4 flex-1 line-clamp-2 leading-relaxed">
                 {post.excerpt}
               </p>
-              <div className="flex items-center justify-between pt-3 border-t border-border/50">
+              <div className="flex items-center justify-between pt-3 border-t border-border">
                 <time className="text-xs text-foreground-secondary">{post.date}</time>
                 <span className="text-xs text-foreground-secondary">{post.readingTime}</span>
               </div>
@@ -157,7 +139,7 @@ export default function Home() {
           <div className="animate-fade-in-up">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
-                <span className="w-1.5 h-7 bg-gradient-to-b from-pink to-orange rounded-full" />
+                <span className="w-1 h-6 bg-accent rounded-full" />
                 GitHub 开源项目
               </h2>
               <a
